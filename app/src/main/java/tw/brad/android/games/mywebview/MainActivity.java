@@ -63,7 +63,9 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onLocationChanged(Location location) {
-
+            double lat = location.getLatitude();
+            double lng = location.getLongitude();
+            webView.loadUrl("javascript:moveTo(" + lat + "," + lng + ")");
         }
 
         @Override
