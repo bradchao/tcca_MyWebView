@@ -3,6 +3,9 @@ package tw.brad.android.games.mywebview;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -16,6 +19,9 @@ import android.webkit.WebViewClient;
 
 public class MainActivity extends AppCompatActivity {
     private WebView webView;
+    private LocationManager lmgr;
+    private MyListener listener;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,8 +48,38 @@ public class MainActivity extends AppCompatActivity {
         webView = (WebView)findViewById(R.id.webview);
         initWebView();
 
-        
+        lmgr = (LocationManager) getSystemService(LOCATION_SERVICE);
+        listener = new MyListener();
+        lmgr.requestLocationUpdates(LocationManager.GPS_PROVIDER,0,0,listener);
+    }
 
+    @Override
+    public void finish() {
+        lmgr.removeUpdates(listener);
+        super.finish();
+    }
+
+    private class MyListener implements LocationListener {
+
+        @Override
+        public void onLocationChanged(Location location) {
+
+        }
+
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+
+        }
+
+        @Override
+        public void onProviderEnabled(String provider) {
+
+        }
+
+        @Override
+        public void onProviderDisabled(String provider) {
+
+        }
     }
 
     private void initWebView(){
