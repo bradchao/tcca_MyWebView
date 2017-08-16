@@ -12,7 +12,9 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -91,10 +93,13 @@ public class MainActivity extends AppCompatActivity {
         WebSettings setting = webView.getSettings();
         setting.setJavaScriptEnabled(true);
 
+        webView.addJavascriptInterface(new MyJS(),"brad");
+
         // 1.
         //webView.loadUrl("http://www.tcca.org.tw");
         // 2.
-        webView.loadUrl("file:///android_asset/mymap.html");
+        //webView.loadUrl("file:///android_asset/mymap.html");
+        webView.loadUrl("file:///android_asset/brad.html");
     }
 
     public void test1(View view){
@@ -103,4 +108,14 @@ public class MainActivity extends AppCompatActivity {
     public void test2(View view){
         webView.goBack();
     }
+
+    public class MyJS {
+        @JavascriptInterface
+        public String m1(){
+            Log.i("brad", "m1()");
+            return "";
+        }
+    }
+
+
 }
