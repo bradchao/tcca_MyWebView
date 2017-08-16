@@ -111,8 +111,8 @@ public class MainActivity extends AppCompatActivity {
 
     public class MyJS {
         @JavascriptInterface
-        public String m1(){
-            Log.i("brad", "m1()");
+        public String m1(String name){
+            Log.i("brad", "m1():" + name);
             return "";
         }
     }
